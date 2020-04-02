@@ -25,25 +25,18 @@ const auth = new google.auth.JWT(
 const drive = google.drive({ version: "v3", auth });
 
 const dataId = '1LqCuQ9WxTkhenQHmCBTYDp3KXsRD7tpb';
-const dataFilename = 'lth-c-d.txt';
-const dest = fs.createWriteStream(dataFilename);
 
-drive.files.get({fileId: dataId, alt: 'media'}, {responseType: 'stream'},
-  function(err, res) {
-    res.data.on('end', () => {
-      console.log('Done.');
-    }).on('error', err => {
-      console.log('Error.', err);
-    }).pipe(dest);
-  }
-);
+async function readData(dataId, res) {
+  const request = drive.files.get({
+    fileId: dataId,
+    alt: 'media'
+  });
+
+  request.then((response) => {
+    res.json(response.data)
+  });
+};
 
 app.get('/heatmap', (req, res) => {
-  fs.readFile(dataFilename, 'utf8', (err, data) => {
-    if (err) {
-      throw err;
-    }
-
-    res.json(data);
-  });
+  readData(dataId, res);
 });
