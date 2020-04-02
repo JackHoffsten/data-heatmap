@@ -120,9 +120,12 @@
 
           const fDataLatMean = fDataLatSum / fDataLength;
           const fDataLngMean = fDataLngSum / fDataLength;
+          
+          const centerLat = 59.3127785;
+          const centerLng = 18.0757694;
 
           const heatmap = new L.Map('heatmap', {
-            center: new L.LatLng(fDataLatMean, fDataLngMean),
+            center: new L.LatLng(centerLat, centerLng),
             zoom: 16,
             layers: [tiles, heatmapLayer]
           });
