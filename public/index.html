@@ -21,6 +21,9 @@
     </form>
     <p id="howMany" style="visibility: hidden; font-size: 25px"></p>
     <div id="heatmap" style="width: 600px; height: 400px; position: relative;"></div>
+    <p>
+      <a href="https://script.google.com/macros/s/AKfycbyoXnSzo2VZ3dQAs9x-QuQZ3QRDqopRagBuWbvaR0N4lbNVVBA/exec">Submit</a>
+    </p>
     <script type="text/javascript">
       window.onload = function() {
         const yes = document.getElementById('yes');
@@ -117,9 +120,12 @@
 
           const fDataLatMean = fDataLatSum / fDataLength;
           const fDataLngMean = fDataLngSum / fDataLength;
+          
+          const centerLat = 59.3127785;
+          const centerLng = 18.0757694;
 
           const heatmap = new L.Map('heatmap', {
-            center: new L.LatLng(fDataLatMean, fDataLngMean),
+            center: new L.LatLng(centerLat, centerLng),
             zoom: 16,
             layers: [tiles, heatmapLayer]
           });
